@@ -1,6 +1,9 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, StyleSheetManager } from 'styled-components';
 import { MdDone, MdDelete } from 'react-icons/md';
+
+// shouldForwardProp 함수를 정의하여 알 수 없는 prop 필터링
+// const shouldForwardProp = (prop) => !prop.startsWith('done');
 
 const Remove = styled.div`
   display: none;
@@ -37,8 +40,9 @@ const CheckCircle = styled.div`
   justify-content: center;
   margin-right: 20px;
   cursor: pointer;
+
   ${(props) =>
-    props.done &&
+    props.$done &&
     css`
       border: 1px solid #38d9a9;
       color: #38d9a9;
@@ -50,7 +54,7 @@ const Text = styled.div`
   font-size: 21px;
   color: #495057;
   ${(props) =>
-    props.done &&
+    props.$done &&
     css`
       color: #ced4da;
     `}
@@ -58,13 +62,15 @@ const Text = styled.div`
 
 function TodoItem({ text, done }) {
   return (
+    // <StyleSheetManager shouldForwardProp={(prop) => !prop.startsWith('$')}>
     <TodoItemBlock>
-      <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
-      <Text done={done}>{text}</Text>
+      <CheckCircle $done={done}>{done && <MdDone />}</CheckCircle>
+      <Text $done={done}>{text}</Text>
       <Remove>
         <MdDelete />
       </Remove>
     </TodoItemBlock>
+    // </StyleSheetManager>
   );
 }
 
