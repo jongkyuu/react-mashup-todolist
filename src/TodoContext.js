@@ -42,7 +42,7 @@ const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 
-function TodoContext({ children }) {
+function TodoProvider({ children }) {
   const [state, dispatch] = useReducer(todoReducer, initialTodos);
   const nextId = useRef(5);
 
@@ -84,4 +84,4 @@ export function useTodoNextId() {
   return context;
 }
 
-export default TodoContext;
+export default TodoProvider;
