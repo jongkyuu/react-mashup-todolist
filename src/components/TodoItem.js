@@ -66,7 +66,6 @@ function TodoItem({ text, done, id }) {
   const onToggle = () => dispatch({ type: 'TOGGLE', id });
 
   return (
-    // <StyleSheetManager shouldForwardProp={(prop) => !prop.startsWith('$')}>
     <TodoItemBlock>
       <CheckCircle $done={done} onClick={onToggle}>
         {done && <MdDone />}
@@ -76,7 +75,6 @@ function TodoItem({ text, done, id }) {
         <MdDelete />
       </Remove>
     </TodoItemBlock>
-    // </StyleSheetManager>
   );
 }
 

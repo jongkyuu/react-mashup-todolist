@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
+import { useTodoDispatchContext, useTodoNextId } from '../TodoContext';
 
 const CircleButton = styled.div`
   background: #38d9a9;
@@ -73,13 +74,37 @@ const Input = styled.input`
 function TodoCreate() {
   const [open, setOpen] = useState(false);
   const onToggle = () => setOpen(!open);
+  const [text, setText] = useState('');
+
+  const nextId = useTodoNextId();
+  const dispatch = useTodoDispatchContext();
+
+  const onKeyDown = (e, text) => {
+    if (e.key === 'Enter') {
+      dispatch({
+        type: 'CREATE',
+        todo: {
+          id: nextId.current,
+          text: e.target.value,
+          done: false,
+        },
+      });
+      nextId.current += 1;
+      e.target.value = '';
+    }
+  };
 
   return (
     <>
       {open && (
         <InsertFormPositioner>
           <InsertForm>
-            <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" />
+            <Input
+              autoFocus
+              placeholder="할 일을 입력 후, Enter 를 누르세요"
+              text={text}
+              onKeyDown={(e) => onKeyDown(e, text, dispatch, nextId)}
+            />
           </InsertForm>
         </InsertFormPositioner>
       )}

@@ -44,12 +44,6 @@ function TodoHead() {
   const week = ['일', '월', '화', '수', '목', '금', '토'];
   const day = week[dayOfWeek];
 
-  // 출력
-
-  //   console.log(undoneTasks);
-  console.log(`date : ${date}`);
-  //   console.log(`day : ${day}요일`);
-
   return (
     <TodoHeadBlock>
       <h1>{date}</h1>
