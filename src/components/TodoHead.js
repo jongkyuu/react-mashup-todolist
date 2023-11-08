@@ -36,7 +36,9 @@ function TodoHead() {
   const dayOfWeek = today.getDay();
 
   // 날짜 출력
-  const date = `2023년 ${today.getFullYear()}월 ${today.getMonth() + 1}일`;
+  const date = `${today.getFullYear()}년 ${
+    today.getMonth() + 1
+  }월 ${today.getDate()}일`;
 
   // 요일 출력
   const week = ['일', '월', '화', '수', '목', '금', '토'];
@@ -45,7 +47,7 @@ function TodoHead() {
   // 출력
 
   //   console.log(undoneTasks);
-  //   console.log(`date : ${date}`);
+  console.log(`date : ${date}`);
   //   console.log(`day : ${day}요일`);
 
   return (

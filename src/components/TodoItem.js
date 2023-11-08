@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled, { css, StyleSheetManager } from 'styled-components';
 import { MdDone, MdDelete } from 'react-icons/md';
+import { useTodoDispatchContext } from '../TodoContext';
 
 // shouldForwardProp 함수를 정의하여 알 수 없는 prop 필터링
 // const shouldForwardProp = (prop) => !prop.startsWith('done');
@@ -60,13 +61,18 @@ const Text = styled.div`
     `}
 `;
 
-function TodoItem({ text, done }) {
+function TodoItem({ text, done, id }) {
+  const dispatch = useTodoDispatchContext();
+  const onToggle = () => dispatch({ type: 'TOGGLE', id });
+
   return (
     // <StyleSheetManager shouldForwardProp={(prop) => !prop.startsWith('$')}>
     <TodoItemBlock>
-      <CheckCircle $done={done}>{done && <MdDone />}</CheckCircle>
+      <CheckCircle $done={done} onClick={onToggle}>
+        {done && <MdDone />}
+      </CheckCircle>
       <Text $done={done}>{text}</Text>
-      <Remove>
+      <Remove onClick={() => dispatch({ type: 'REMOVE', id })}>
         <MdDelete />
       </Remove>
     </TodoItemBlock>
@@ -74,4 +80,4 @@ function TodoItem({ text, done }) {
   );
 }
 
-export default TodoItem;
+export default React.memo(TodoItem);
